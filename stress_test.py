@@ -3,6 +3,7 @@ import aiohttp
 import time
 from tqdm.asyncio import tqdm
 
+# kirim satu request
 async def post(session: aiohttp.ClientSession):
     image = open('image.jpg', 'rb')
     time_start = time.time()
@@ -10,11 +11,11 @@ async def post(session: aiohttp.ClientSession):
         await response.text()
         time_end = time.time()
         return time_end - time_start
-    
 async def bound_post(semaphore, session):
     async with semaphore:
         return await post(session)
 
+# kirim n request secara async
 async def stress_test(n):
     print(f"Running {n} times")
     semaphore = asyncio.Semaphore(1000)

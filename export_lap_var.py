@@ -45,13 +45,9 @@ with open('lap_var_values.csv', 'w', newline='') as csvfile:
             pbar.update(1)
 
             for image_width in [original_width, 400, 1600]:
-                resized = cv2.resize(gray, (image_width, int(image_width * aspect_ratio)))
+                resized = cv2.resize(gray, 
+                    (image_width, int(image_width * aspect_ratio)))
                 fm = variance_of_laplacian(resized)
-
-                # # show the image
-                # cv2.putText(image, "{}: {:.2f}".format(pred, fm), (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 3)
-                # cv2.imshow("Image", image)
-                # key = cv2.waitKey(0)
 
                 # prints the focus measure and clasification
                 writer.writerow([fm, actu, phone, image_width])
